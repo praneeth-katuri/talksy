@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, select: false },
   profilePicture: {
     type: String,
-    default: "https://res.coludinary.com//demo/image/upload/default-avator.png",
+    default:
+      "https://res.cloudinary.com/dpquxv6mk/image/upload/v1745630258/default-avatar_hfyuwp.jpg",
   },
   status: { type: String, enum: ["online", "offline"], default: "offline" },
   lastSeen: { type: Date, default: Date.now },
