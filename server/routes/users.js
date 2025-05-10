@@ -1,26 +1,15 @@
 const express = require("express");
-const auth = require("../middleware/auth");
-const User = require("../models/User");
 const router = express.Router();
+const {
+  getProfile,
+  updateProfile,
+  searchUsers,
+} = require("../controllers/userController");
+const auth = require("../middleware/auth");
 
-router.get("/me", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    res.join(user);
-  } catch (err) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.get("/me", auth, getProfile);
+router.patch("/me", auth, updateProfile);
 
-router.put("/me", auth, async (req, res) => {
-  try {
-    const { username, profilePicture } = req.body;
-    const user = await User.findByIdAndUpdate(req.user.id, {
-      username,
-      profilePicture,
-    });
-    res.join(user);
-  } catch (err) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.get("/search", auth, searchUsers);
+
+module.exports = router;
