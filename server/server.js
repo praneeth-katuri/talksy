@@ -1,6 +1,11 @@
-const app = require("./app");
-const PORT = process.env.PORT || 5000;
+const app = require("./src/app");
+const config = require("./src/config");
+const connectDB = require("./src/config/db");
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(config.app.port, () => {
+    console.log(
+      `Server running in ${config.app.env} mode on port ${config.app.port}`
+    );
+  });
 });
